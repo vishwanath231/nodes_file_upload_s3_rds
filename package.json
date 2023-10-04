@@ -8,6 +8,10 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishwanath231/nodes_file_upload_s3_rds.git"
+  },
   "keywords": [
     "Nodejs",
     "S3",
@@ -16,6 +20,10 @@
   ],
   "author": "Vishwanath",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishwanath231/nodes_file_upload_s3_rds/issues"
+  },
+  "homepage": "https://github.com/vishwanath231/nodes_file_upload_s3_rds#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
