@@ -1,7 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import multer from 'multer';
 import crypto from 'crypto';
-import { uploadFile } from '../aws/s3.js'
+import { uploadFile, getObjectSignedUrl } from '../aws/s3.js'
+import { mysqlConnection } from '../database/mysql.js';
 
 
 const home = asyncHandler(async (req, res) => {
@@ -57,25 +58,48 @@ const jobForm =  asyncHandler(async (req, res) => {
             const fileName = randomImageName();
             const mimetype = req.file.mimetype;
 
-            // upload file in s3
-            const result = await uploadFile(buffer, fileName, mimetype)
+            const { username, email, job_name, job_experience } = req.body;
 
-            
+            // upload file in s3
+            const result = await uploadFile(buffer, fileName, mimetype);
+
             if(result.$metadata.httpStatusCode === 200){
-                res.send({
-                    code: 200,
-                    message: 'Resume Uploaded!'
-                })
+
+                const uploadUrl = await getObjectSignedUrl(fileName);
+
+                if(uploadUrl){
+
+                    mysqlConnection.query("INSERT INTO job_bucket (username,email,job_name,job_experience, resume) VALUES (?,?,?,?,?)", [username, email, job_name, job_experience, uploadUrl],
+                    (err, result) => {
+                        if (err) throw new Error('Failed into insert data!');
+
+                        res.send({
+                            code: 200,
+                            message: 'Submitted successfull!'
+                        })
+                    })
+                }
             }
         }
-        
-    
     }));
-
 });
+
+
+const getMysqlData = asyncHandler(async(req, res) => {
+
+   
+    mysqlConnection.query("select * from job_bucket",
+    (err, result) => {
+        if (err) throw new Error('Failed to retrive data');
+
+        res.send(result);
+    });
+        
+}); 
 
 
 export{ 
     home,
-    jobForm
+    jobForm,
+    getMysqlData
 }
