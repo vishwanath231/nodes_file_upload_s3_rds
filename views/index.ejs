@@ -15,45 +15,75 @@
 
     <h2 id="upload_status" class="text-center mt-4 text-green-600"></h2>
 
-    <div class="max-w-screen-sm mx-auto mt-10 mb-4 px-5">
-        <form  id="job_form">
-            <div class="grid grid-cols-1 md:grid-cols-2 mb-6">
-                <div class="md:mr-2 md:mb-0 mb-4">
-                    <label for="username" class="block mb-1 text-sm font-medium text-gray-900">Username <span class="text-red-600">*</span></label>
-                    <input type="text" name="username" id="username"
-                    value="vishwanath231"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+    <div class="max-w-screen-2xl mx-auto mt-10 mb-4 px-5">
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
+            <form id="job_form">
+                <div class="grid grid-cols-1 md:grid-cols-2 mb-6">
+                    <div class="md:mr-2 md:mb-0 mb-4">
+                        <label for="username" class="block mb-1 text-sm font-medium text-gray-900">Full Name <span
+                                class="text-red-600">*</span></label>
+                        <input type="text" name="username" id="username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
+                    <div class="md:ml-2">
+                        <label for="email" class="block mb-1 text-sm font-medium text-gray-900">Email <span
+                                class="text-red-600">*</span></label>
+                        <input type="email" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
                 </div>
-                <div class="md:ml-2">
-                    <label for="email" class="block mb-1 text-sm font-medium text-gray-900">Email <span class="text-red-600">*</span></label>
-                    <input type="email" name="email" id="email"
-                    value="vishwanathvishwabai@gmail.com"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                <div class="grid grid-cols-1 md:grid-cols-2 mb-6">
+                    <div class="md:mr-2 md:mb-0 mb-4">
+                        <label for="job_name" class="block mb-1 text-sm font-medium text-gray-900">Job Role <span
+                                class="text-red-600">*</span></label>
+                        <input type="text" name="job_name" id="job_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
+                    <div class="md:ml-2">
+                        <label for="job_experience" class="block mb-1 text-sm font-medium text-gray-900">Experiences <span
+                                class="text-red-600">*</span></label>
+                        <input type="number" name="job_experience" id="job_experience"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                    </div>
                 </div>
+                <div class="">
+                    <label for="resume" class="block mb-1 text-sm font-medium text-gray-900">Resume Upload <span
+                            class="text-red-600">*</span></label>
+                    <input type="file" name="resume" id="resume"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required>
+                        <div class="text-blue-500 text-xs mt-0.5">PDF - 2MB</div>
+                </div>
+                <div id="file_error" class="text-red-500 mt-1"></div>
+                <button type="submit" class="bg-[#a3b18a] p-2.5 rounded uppercase block w-full mt-7">Submit</button>
+            </form>
+            <div class="relative overflow-x-auto col-span-2">
+                <table class="w-full text-sm text-left text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Full Name</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Job Role</th>
+                            <th scope="col" class="px-6 py-3">Experience</th>
+                            <th scope="col" class="px-6 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 mb-6">
-                <div class="md:mr-2 md:mb-0 mb-4">
-                    <label for="job_name" class="block mb-1 text-sm font-medium text-gray-900">Job Name <span class="text-red-600">*</span></label>
-                    <input type="text" name="job_name" id="job_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-                </div>
-                <div class="md:ml-2">
-                    <label for="job_experience" class="block mb-1 text-sm font-medium text-gray-900">Job Experiences <span class="text-red-600">*</span></label>
-                    <input type="number" name="job_experience" id="job_experience"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-                </div>
-            </div>
-            <div class="">
-                <label for="resume" class="block mb-1 text-sm font-medium text-gray-900">Resume Upload <span class="text-red-600">*</span></label>
-                <input type="file" name="resume" id="resume"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-            </div>
-            <div id="file_error" class="text-red-500 mt-1"></div>
-            <button type="submit" class="bg-[#a3b18a] p-2.5 rounded uppercase block w-full mt-7">Submit</button>
-        </form>
+        </div>
     </div>
+
+
+
 
 
     <script src="/js/main.js"></script>
 </body>
 </html>
+
+
