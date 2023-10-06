@@ -26,13 +26,60 @@ document.getElementById('job_form').addEventListener('submit', (e) => {
         if (data?.code === 400) {
             document.getElementById('file_error').innerHTML = data?.message;
         }else if (data?.code === 200){
+            getFetchData();
+            username.value = '';
+            email.value = '';
+            job_name.value = '';
+            job_experience.value = '';
+            resume.value = '';
             document.getElementById('file_error').innerHTML = '';
             document.getElementById('upload_status').innerHTML = data?.message;
         }else{
             document.getElementById('file_error').innerHTML = '';
         }
-
     })
     .catch((err) => console.log(err))
-
 })
+
+
+
+function getFetchData(){
+    fetch(`http://localhost:6001/all`)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+            if (data) {
+
+                let result = '';
+
+                data.forEach((val) => {
+                    result += `
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            ${val.username}
+                        </th>
+                        <td class="px-6 py-4">
+                            ${val.email}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${val.job_name}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${val.job_experience}
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="${val.resume}" target="_blank">
+                                <img src='/css/tab.png' class='w-6' alt='Resume' />
+                            </a>
+                        </td>
+                    </tr>
+                    `;
+                })
+
+                document.getElementById('tbody').innerHTML = result;
+            }
+        })
+        .catch((err) => console.log(err))
+}
+
+getFetchData();
